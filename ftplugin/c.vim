@@ -1,6 +1,7 @@
 if exists('g:my_c_config')
 	finish
 endif
+let g:my_c_config = 1
 
 " see :h fold-expr | :h expr-=~
 " I would have tried folding with syntax if I could prenvent normal function
