@@ -1,2 +1,2 @@
-# vim_c_config
-My vim C specific config
+# Vim config
+My vim specific config
