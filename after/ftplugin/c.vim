@@ -3,7 +3,8 @@ if exists('b:my_c_config')
 endif
 let b:my_c_config = 1
 
-" Folding: {{{
+" Folding {{{
+"
 " Fold test_ functions:
 " see :h fold-expr | :h expr-=~
 " I would have tried to fold with syntax but every other function if folding
@@ -11,7 +12,8 @@ let b:my_c_config = 1
 setl fdm=expr
 setl foldexpr=c_fold_test#fold_test_functions(v:lnum)
 "}}}
-" Comments: {{{
+" Comments {{{
+"
 " Comment style:
 " (see options commentsting and comments)
 setl comments=sr:/*,mb:**,ex:*/,://
