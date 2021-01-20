@@ -38,5 +38,5 @@ let b:tcomment_block_fmt_c = {
 			\ }
 \ } " replacements subst is used to deal with nested comments
 " to systematically call block_fmt
-call tcomment#type#Define('c', b:tcomment_block_fmt_c )
+" call tcomment#type#Define('c', b:tcomment_block_fmt_c )
 "}}}
