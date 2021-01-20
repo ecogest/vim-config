@@ -14,8 +14,8 @@ fu! s:protect_header ()
 endfu
 
 fu! s:check_filename (lnum)
-  let fmt_name = split(a:lnum)[1]
-  if fmt_name == toupper(expand('%:r') . '_H')
+  let protect_id = split(a:lnum)[1]
+  if protect_id == toupper(expand('%:r') . '_H')
     return 1
   else
     return 0
@@ -27,8 +27,7 @@ fu! s:update_header ()
   let nlines = line("$")
   while i < nlines
     let l:line = getline(i)
-    let l:match = match(l:line, '#ifndef [[:upper:]_]\+_H$')
-    if l:match != -1
+    if l:line =~ '#ifndef [[:upper:]_]\+_H$'
       if s:check_filename(l:line) == 0
         call setline(i, '#ifndef ' . toupper(expand('%:r')) . '_H')
       endif
