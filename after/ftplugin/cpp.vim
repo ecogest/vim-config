@@ -8,7 +8,7 @@ runtime! ftplugin/c.vim
 " Protect my headers {{{
 "
 fu! s:protect_header ()
-	call setline(1, '#ifndef ' . toupper(expand('%:r')) . '_H')
+	call setline(1, '#ifndef ' . toupper(expand('%:t:r')) . '_H')
 	call setline(2, '#endif')
     Stdheader
 endfu
@@ -29,7 +29,7 @@ fu! s:update_header ()
     let l:line = getline(i)
     if l:line =~ '#ifndef [[:upper:]_]\+_H$'
       if s:check_filename(l:line) == 0
-        call setline(i, '#ifndef ' . toupper(expand('%:r')) . '_H')
+        call setline(i, '#ifndef ' . toupper(expand('%:t:r')) . '_H')
       endif
       return
     endif
