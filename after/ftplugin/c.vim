@@ -1,7 +1,7 @@
-if exists('b:my_c_config')
-	finish
-endif
-let b:my_c_config = 1
+" if exists('b:my_c_config')
+" 	finish
+" endif
+" let b:my_c_config = 1
 
 " Folding {{{
 "

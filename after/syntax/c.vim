@@ -6,7 +6,7 @@ runtime! syntax/global.vim " does the same
 syn match cType '\<t_\w\+'
 
 " Hilight comment titles:
-syn keyword cCommentWarning OBSOLETE WARNING FIXIT PROTECT contained
+syn keyword cCommentWarning OBSOLETE WARNING FIXIT PROTECT DEPRECATED contained
 hi cCommentWarning guifg=orange
 
 syn match cCommentHeader  '\v^\A+\zs[[:upper:],\- ]+\ze(:|$)' contained contains=cCommentWarning,cTodo
