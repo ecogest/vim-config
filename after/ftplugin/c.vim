@@ -3,6 +3,13 @@
 " endif
 " let b:my_c_config = 1
 
+" Options {{{
+"
+setl tabstop=4
+setl shiftwidth=4
+setl noexpandtab
+
+" }}}
 " Folding {{{
 "
 " Fold test_ functions:
