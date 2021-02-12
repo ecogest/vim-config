@@ -19,14 +19,19 @@ syn match pomoTodo '^ \S Todo$'
 syn match pomoBrief '^ \S Brief$' contained containedin=pomoBriefArea
 
 " Areas:
+syn region pomoDailyTodoArea start='^\S Todo$' end='^\ze\S Pomo \d\+$' transparent nextgroup=pomoFirstArea
+syn region pomoFirstArea start='^\S Pomo \d\+$' end='^\ze\S Pomo \d\+$' transparent contained
 syn region pomoArea start='^\S Pomo \d\+$' end='^\ze\S Pomo \d\+$' transparent
-" syn match pomoTomato '^#\ze ' contained containedin=pomoPomo transparent conceal cchar=🍅 " cchar=
 syn region pomoBriefArea start='^ \S Brief$' end='^\ze\S Pomo' keepend
 
 " Items:
 syn match pomoItem '^\s*- \[.*\] \v(\S.*)=$'
 syn match pomoCompleteItem '^\s*- \[\S\+\].*$' contained containedin=pomoItem
 syn match pomoIncompleteItem '^\s*- \[ ].*$' contained containedin=pomoArea
+
+" Conceals:
+" syn match pomoTomato '^#\ze ' contained containedin=pomoPomo transparent conceal cchar=🍅 " cchar=
+syn match pomoListChar '^ \zs-\ze \[.*\]' containedin=pomoItem,pomoCompleteItem conceal cchar=•
 
 " }}}
 " Higlights {{{
