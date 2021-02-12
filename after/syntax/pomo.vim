@@ -10,14 +10,14 @@ endif
 let s:cpo_save = &cpo
 set cpo&vim
 
-syn match pomoDailyTodo '^# Todo$'
-syn match pomoPomo '^# Pomo \d\+$'
+syn match pomoDailyTodo '^\S Todo$'
+syn match pomoPomo '^\S Pomo \d\+$'
 " syn match pomoTomato '^#\ze ' contained containedin=pomoPomo transparent conceal cchar=🍅 " cchar=
 
-syn match pomoTodo '^## Todo$'
+syn match pomoTodo '^ \S Todo$'
 
-syn region pomoBriefArea start='^## Brief$' end='^\ze# Pomo' keepend
-syn match pomoBrief '^## Brief$' contained containedin=pomoBriefArea
+syn region pomoBriefArea start='^ \S Brief$' end='^\ze\S Pomo' keepend
+syn match pomoBrief '^ \S Brief$' contained containedin=pomoBriefArea
 
 syn match pomoItem '^\s*- \[.*\] \v(\S.*)=$'
 syn match pomoCompleteItem '^\s*- \[\S\+\].*$' contained containedin=pomoItem
