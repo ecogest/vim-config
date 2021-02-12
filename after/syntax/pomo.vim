@@ -26,12 +26,14 @@ syn region pomoBriefArea start='^ \S Brief$' end='^\ze\S Pomo' keepend
 
 " Items:
 syn match pomoItem '^\s*- \[.*\] \v(\S.*)=$'
-syn match pomoCompleteItem '^\s*- \[\S\+\].*$' contained containedin=pomoItem
+syn match pomoCompleteItem '^\s*- \v(\[\S+\]).*$' contained containedin=pomoItem
+" Idem but after symbol substitution
+exe 'syn match pomoCompleteItem #^\s*- '.g:pomo_done_symbol.'.*$# containedin=pomoItem'
 syn match pomoIncompleteItem '^\s*- \[ ].*$' contained containedin=pomoArea
 
 " Conceals:
-" syn match pomoTomato '^#\ze ' contained containedin=pomoPomo transparent conceal cchar=🍅 " cchar=
 syn match pomoListChar '^ \zs-\ze \[.*\]' containedin=pomoItem,pomoCompleteItem conceal cchar=•
+exe 'syn match pomoListChar #^ \zs-\ze '.g:pomo_done_symbol.'# containedin=pomoItem,pomoCompleteItem conceal cchar=•'
 
 " }}}
 " Higlights {{{
