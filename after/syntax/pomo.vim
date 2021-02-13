@@ -1,8 +1,10 @@
 " Vim syntax file
-" Language:	pomo
+" Language:     pomo
 " Maintainer:	Me
 " Last Change:	2021
 
+" If b:current_syntax is defined,
+" some other syntax file, earlier in 'runtimepath' was already loaded
 if exists("b:current_syntax")
   finish
 endif
@@ -22,13 +24,13 @@ syn match pomoBrief '^ \S Brief$' contained containedin=pomoBriefArea
 syn region pomoDailyTodoArea start='^\S Todo$' end='^\ze\S Pomo \d\+$' transparent nextgroup=pomoFirstArea
 syn region pomoFirstArea start='^\S Pomo \d\+$' end='^\ze\S Pomo \d\+$' transparent contained
 syn region pomoArea start='^\S Pomo \d\+$' end='^\ze\S Pomo \d\+$' transparent
-syn region pomoBriefArea start='^ \S Brief$' end='^\ze\S Pomo' keepend
+syn region pomoBriefArea start='^ \S Brief$' end='^\ze\S Pomo'
 
 " Items:
 syn match pomoItem '^\s*- \[.*\] \v(\S.*)=$'
 syn match pomoCompleteItem '^\s*- \v(\[\S+\]).*$' contained containedin=pomoItem
 " Idem but after symbol substitution
-exe 'syn match pomoCompleteItem #^\s*- '.g:pomo_done_symbol.'.*$# containedin=pomoItem'
+exe 'syn match pomoCompleteItem #^\s*- '.g:pomo_done_symbol.'.*$#'
 syn match pomoIncompleteItem '^\s*- \[ ].*$' contained containedin=pomoArea
 
 " Conceals:
@@ -53,3 +55,9 @@ hi! def link pomoCompleteItem Constant
 hi! def link pomoIncompleteItem DiffChange
 
 " }}}
+
+let b:current_syntax='pomo'
+
+let &cpo = s:cpo_save
+unlet s:cpo_save
+" vim: ts=8 sw=2
