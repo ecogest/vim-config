@@ -14,6 +14,10 @@ set cpo&vim
 
 " Syntax {{{
 "
+" Guidelines:
+" - avoid \zs (the first part can still obliterate other matches), use a
+"   prefix group instead (with nextgroup)
+"
 " Titles:
 syn match pomoDailyTodo '^\S Todo$'
 syn match pomoPomo '^\S Pomo \d\+$'
