@@ -28,15 +28,17 @@ syn region pomoDoneArea start='^\S Pomo \d\+$' end='^\ze\S Pomo \d\+$' transpare
 syn region pomoBriefArea start='^ \S Brief$' end='^\ze\S Pomo'
 
 " Items:
-syn match pomoItem '^\s*- \[.*\] \v(\S.*)=$'
-syn match pomoCompleteItem '^\s*- \v(\[\S+\]).*$' contained containedin=pomoItem
+syn cluster pomoItems contains=pomoItem,pomoCompleteItem,pomoIncompleteItem
+syn match pomoItemStart '^\s*- ' nextgroup=@pomoItems
+syn match pomoItem '^\s*- \[.*\] \v(\S.*)=$' contained containedin=pomoDailyTodoArea,pomoFirstArea
+syn match pomoCompleteItem '^\s*- \v(\[\S+\]).*$' contained containedin=ALL
 " Idem but after symbol substitution
 exe 'syn match pomoCompleteItem #^\s*- '.g:pomo_done_symbol.'.*$#'
-syn match pomoIncompleteItem '^\s*- \[ ].*$' contained containedin=pomoDoneArea
+syn match pomoIncompleteItem '\[ ].*$' contained containedin=pomoDoneArea
+exe 'syn match pomoIncompleteItem /'.g:pomo_empty_symbol.'.*$/ contained containedin=pomoDoneArea'
 
 " Conceals:
-syn match pomoListChar '^\s*\zs-\ze \[.*\]' containedin=pomoItem,pomoCompleteItem conceal cchar=•
-exe 'syn match pomoListChar #^\s*\zs-\ze '.g:pomo_done_symbol.'# containedin=pomoItem,pomoCompleteItem conceal cchar=•'
+syn match pomoListChar '-' contained containedin=pomoItemStart,@pomoItems conceal cchar=•
 
 " }}}
 " Higlights {{{
