@@ -1,4 +1,4 @@
-" Parameters {{{1
+" Script parameters {{{1
 let s:pomo_line=g:pomo_symbol.' Pomo '
 let s:pomo_todo_line=g:pomo_todo_symbol.' Todo'
 let s:pomo_sub_todo_line=' '.s:pomo_todo_line
