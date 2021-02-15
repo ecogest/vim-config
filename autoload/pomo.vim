@@ -39,6 +39,18 @@ fu! pomo#PomoMarkLineChecked()
   while l <= range_end
     if getline(l) == done_line
       exe 'silent '.l.'s/^\s*- \[\zs \ze]/x/e'
+      " sort
+      let i = 1
+      if l + i == line('$') | break | endif
+      while getline(l + i) =~ '^ - '
+        let i +=1
+      endwhile
+      if i > 1
+        let l:line = getline('.')
+        normal! dd
+        call append(l + i - 2, l:line)
+      endif
+      " end sort
     endif
     let l += 1
   endwhile
