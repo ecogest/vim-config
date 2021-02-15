@@ -11,7 +11,13 @@ fu! pomo#AddFromDailyList()
     return
   endif
   let task = getline(v:count)
-  call append('.', task)
+  if getline('.') =~ '^ - \[ ] \=$'
+    call setline('.', task)
+  else
+    call append('.', task)
+    normal! j
+  endif
+  normal! $
 endfu
 
 fu! pomo#PomoReplaceDone()

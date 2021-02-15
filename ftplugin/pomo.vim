@@ -35,4 +35,4 @@ endif
 
 " Mappings {{{1
 nnoremap <silent><buffer> x :PomoCheck <bar> w<CR>
-nnoremap <silent><buffer> <localleader>a :<C-U>call pomo#AddFromDailyList()<CR>
+nnoremap <silent><buffer><expr> a (v:count == 0 ? 'a': ':<C-U>call pomo#AddFromDailyList()<CR>')
