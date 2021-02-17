@@ -7,9 +7,13 @@ let s:pomo_brief_line=' '.g:pomo_brief_symbol.' Brief'
 " Public functions {{{1
 
 " automaticall insert ' - [ ] ' on some keys ('o' and 'O')
-fu! pomo#autoStartItem(key)
+fu! pomo#autoStartItem(key, mode)
   let line = getline('.')
-  exe 'normal!' . a:key
+  if a:mode == 'n'
+    exe 'normal!' . a:key
+  elseif a:mode == 'a'
+    exe 'normal! a'. a:key
+  endif
   if line =~ '^ - ' && getline('.') =~ '^\s*$'
     call setline('.', ' - [ ] ')
   endif
