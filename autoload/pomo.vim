@@ -6,6 +6,17 @@ let s:pomo_brief_line=' '.g:pomo_brief_symbol.' Brief'
 
 " Public functions {{{1
 
+" automaticall insert ' - [ ] ' on some keys ('o' and 'O')
+fu! pomo#autoStartItem(key)
+  let line = getline('.')
+  exe 'normal!' . a:key
+  if line =~ '^ - ' && getline('.') =~ '^\s*$'
+    call setline('.', ' - [ ] ')
+  endif
+  normal! $
+  startinsert!
+endfu
+
 fu! pomo#AddFromDailyList()
   if v:count == 0
     return

@@ -36,3 +36,6 @@ endif
 " Mappings {{{1
 nnoremap <silent><buffer> x :<C-U>PomoCheck <bar> w<CR>
 nnoremap <silent><buffer><expr> a (v:count == 0 ? 'a': ':<C-U>call pomo#AddFromDailyList()<CR>')
+for key in [ 'o', 'O' ]
+  exe 'nnoremap <silent><buffer> '.key.' :call pomo#autoStartItem("'.key.'")<CR>'
+endfor
