@@ -28,7 +28,11 @@ endfu
 
 fu! pomo#PomoMarkLineChecked()
   let cp = getcurpos()[1:2]
-  let done_line = getline('.')
+  if v:count == 0
+    let done_line = getline('.')
+  else
+    let done_line = getline(v:count)
+  endif
   call s:setLastPomoData()
   if s:pomo_count <= 1
     let range_end = line('$')
