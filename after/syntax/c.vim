@@ -17,3 +17,6 @@ syn cluster cCommentGroup add=cCommentHeader,cCommentWarning
 " Dim parent object like obj-> or obj.
 syn match cParentStruct '\v(-\>|\.)=\w+\ze(-\>|\.)' containedin=@cRainbowOperators
 hi def link cParentStruct asciidocListingBlock
+
+" Statement style (return, break)
+hi! def link cStatement Statement
