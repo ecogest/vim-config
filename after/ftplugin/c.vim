@@ -17,7 +17,7 @@ setl noexpandtab
 " I would have tried to fold with syntax but every other function if folding
 "
 setl fdm=expr
-setl foldexpr=c_fold_test#fold_test_functions(v:lnum)
+setl foldexpr=c_fold#c_fold(v:lnum)
 "}}}
 " Comments {{{
 "
