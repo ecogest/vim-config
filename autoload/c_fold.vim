@@ -4,21 +4,24 @@ let s:nestlvl=0
 " Fold test_functions {{{1
 fu! c_fold#fold_test_functions(lnum)
 	let line=getline(a:lnum)
+	" Start:
 	let test_func_pattern='^\w\+\s\+test_\w\+('
 	if (line =~ test_func_pattern)
 		let s:fold=1
-		return (1)
+		return ('>1')
+	" Middle:
 	elseif s:fold == 1
 		if (line =~ '{$')
 			let s:nestlvl+=1
 		elseif (line =~ '}$')
 			let s:nestlvl-=1
+			" End:
 			if s:nestlvl == 0
 				let s:fold=0
-				return (1)
+				return (1) " end
 			endif
 		endif
-		return (1)
+		return (1) " middle
 	endif
 	return (0)
 endfu
@@ -40,10 +43,15 @@ fu! Has42Header()
 endfu
 
 fu! c_fold#foldheader(lnum)
-	if a:lnum <= 11 && Has42Header()
-		return 1
+	if a:lnum >= 12 || !Has42Header()
+		return (0)
+	endif
+	if a:lnum == 1
+		return ('>1')
+	elseif a:lnum < 11
+		return (1)
 	else
-		return 0
+		return ('<1')
 	endif
 endfu
 
@@ -53,7 +61,7 @@ endfu
 
 fu! c_fold#c_fold(lnum)
 	let ret = c_fold#foldheader(a:lnum)
-	if ret
+	if ret || type(ret) == v:t_string
 		return ret
 	endif
 	return c_fold#fold_test_functions(a:lnum)
