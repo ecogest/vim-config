@@ -3,7 +3,7 @@
 " endif
 
 " Behaves just like C
-runtime! ftplugin/c.vim 
+runtime! ftplugin/c.vim
 
 " Protect my headers {{{
 "
@@ -11,10 +11,10 @@ runtime! ftplugin/c.vim
 let s:protect_id = toupper(expand('%:t:r')) . '_H'
 
 fu! s:protect_header ()
-	call setline(1, '#ifndef ' . s:protect_id)
-	call setline(2, '# define ' . s:protect_id)
-	call setline(3, '#endif')
-    Stdheader
+  call setline(1, '#ifndef ' . s:protect_id)
+  call setline(2, '# define ' . s:protect_id)
+  call setline(3, '#endif')
+  Stdheader
 endfu
 
 fu! s:check_filename (line)
