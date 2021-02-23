@@ -19,8 +19,8 @@ syn match cParentStruct '\v(-\>|\.)=\w+\ze(-\>|\.)' containedin=@cRainbowOperato
 hi def link cParentStruct asciidocListingBlock
 
 " Hilight differently comment characters
-syn match cCommentMiddle '^\*\*' contained containedin=cComment nextgroup=cCommentHeader
-syn match cCommentLStart '//' contained containedin=cCommentL nextgroup=cCommentHeader
+syn match cCommentMiddle '^\s*\*\*' contained containedin=cComment nextgroup=cCommentHeader
+syn match cCommentLStart '//' contained containedin=cCommentL nextgroup=cCommentHeader conceal cchar=
 hi def link cCommentMiddle SpecialKey
 hi! def link cCommentStart cCommentMiddle
 hi! def link cCommentLStart cCommentMiddle
