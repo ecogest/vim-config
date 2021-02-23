@@ -65,6 +65,19 @@ fu! c_fold#fold_comment(lnum)
 		return ('>1')
 	elseif end && !begin
 		return ('<1')
+	" Mutli single-line /* ... */
+	elseif begin && end
+		if a:lnum > 1 && a:lnum < line('$')
+			let prev = (getline(a:lnum - 1) =~ '^\s*/\*.*\*/$')
+			let next = (getline(a:lnum + 1) =~ '^\s*/\*.*\*/$')
+			if !prev && next
+				return ('>1')
+			elseif prev && !next
+				return ('<1')
+			else
+				return (-1)
+			endif
+		endif
 	else
 		return (-1)
 	endif
