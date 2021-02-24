@@ -5,7 +5,7 @@ let s:nestlvl=0
 fu! c_fold#fold_test_functions(lnum)
 	let line=getline(a:lnum)
 	" Start:
-	let test_func_pattern='^\w\+\s\+test_\w\+('
+	let test_func_pattern='^\w\+\s\+test_\w\+(.*[^;]$'
 	if (line =~ test_func_pattern)
 		let s:fold=1
 		return ('>1')
