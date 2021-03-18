@@ -15,7 +15,7 @@ hi cCommentHeader gui=bold guifg=grey
 syn cluster cCommentGroup add=cCommentHeader,cCommentWarning
 
 " Dim parent object like obj-> or obj.
-syn match cParentStruct '\v(-\>|\.)=\w+\ze(-\>|\.)' containedin=@cRainbowOperators
+syn match cParentStruct '\v(-\>|\.)=(\a|_)\w+\ze(-\>|\.)' containedin=@cRainbowOperators
 hi def link cParentStruct asciidocListingBlock
 
 " Hilight differently comment characters
