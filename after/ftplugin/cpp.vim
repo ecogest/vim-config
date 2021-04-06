@@ -50,11 +50,7 @@ au BufWritePre *.h *.hpp Hupdate
 fu! s:hpp_template (name)
   let ret = [
         \ 'class '.a:name.' {',
-        \ 'private:',
         \ 'public:',
-        \ "\t".a:name.'();',
-        \ "\t~".a:name.'();',
-        \ 'protected:',
         \ '};',
         \ ''
         \ ]
