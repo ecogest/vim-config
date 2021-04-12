@@ -33,10 +33,10 @@ fu! Has42Header()
 		return (1)
 	endif
 	if line('$') < 11
-		return (-1)
+		return (0)
 	endif
 	if getline(6) !~ '..\s\+By:' || getline(8) !~ '..\s\+Created'
-		return (-1)
+		return (0)
 	else
 		let b:has42header = 1
 		return (1)
