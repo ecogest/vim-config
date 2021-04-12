@@ -7,17 +7,18 @@ fu! c_fold#fold_test_functions(lnum)
 	" Start:
 	let test_func_pattern='^\w\+\s\+test_\w\+(.*[^;]$'
 	if (line =~ test_func_pattern)
-		let s:fold=1
+		if (line =~ '{$') | let s:nestlvl+=1 | endif
+		let s:fold_test=1
 		return ('>1')
 	" Middle:
-	elseif s:fold == 1
+	elseif s:fold_test == 1
 		if (line =~ '{$')
 			let s:nestlvl+=1
 		elseif (line =~ '}$')
 			let s:nestlvl-=1
 			" End:
 			if s:nestlvl == 0
-				let s:fold=0
+				let s:fold_test=0
 				return ('<1') " end
 			endif
 		endif
@@ -56,7 +57,7 @@ fu! c_fold#foldheader(lnum)
 endfu
 
 " }}}
-
+" Fold comments{{{
 fu! c_fold#fold_comment(lnum)
 	let line = getline(a:lnum)
 	let begin = (line =~ '/\*')
@@ -82,20 +83,20 @@ fu! c_fold#fold_comment(lnum)
 		return (-1)
 	endif
 endfu
+"}}}
 
 " Main fold function:
 
 fu! c_fold#c_fold(lnum)
 	" Header
 	let ret = c_fold#foldheader(a:lnum)
-	if ret != -1
-		return ret
-	endif
+	if ret != -1 | return ret | endif
 	" Comments
 	let ret = c_fold#fold_comment(a:lnum)
-	if ret != -1
-		return ret
-	endif
+	if ret != -1 | return ret | endif
 	" Test functions
-	return c_fold#fold_test_functions(a:lnum)
+	let ret = c_fold#fold_test_functions(a:lnum)
+	if ret != -1 | return ret | endif
+	" Else
+	return -1
 endfu
