@@ -26,7 +26,7 @@ fu! s:update_header_protection ()
   let last_lnum = line("$")
   while lnum < last_lnum
     let l:line = getline(lnum)
-    if l:line =~ '#ifndef [[:upper:]_]\+_H$'
+    if l:line =~ '#ifndef [[:upper:]_]\+_H\(PP\)\=$'
       if !s:is_valid_protection(l:line)
         call setline(lnum, '#ifndef ' . b:protect_id)
         call setline(lnum + 1, '# define ' . b:protect_id)
@@ -39,7 +39,7 @@ endfu
 
 command! Hprotect call s:protect_new_header()
 command! Hupdate call s:update_header_protection()
-au BufWritePre *.h *.hpp Hupdate
+au BufWritePre *.h,*.hpp Hupdate
 " in vimrc you should put:
 " au BufNewFile *.h Hprotect
 

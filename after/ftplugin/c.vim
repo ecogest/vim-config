@@ -18,7 +18,8 @@ setl noexpandtab
 "
 setl fdm=expr
 setl foldexpr=c_fold#c_fold(v:lnum)
-set concealcursor=n
+setl concealcursor=n
+
 "}}}
 " Comments {{{
 "
