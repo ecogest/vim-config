@@ -49,3 +49,13 @@ let b:tcomment_block_fmt_c = {
 " to systematically call block_fmt
 " call tcomment#type#Define('c', b:tcomment_block_fmt_c )
 "}}}
+" Header Switch{{{
+"
+let g:header_location = [ ':git:/includes', '.' ]
+let g:test_location = [ ':git:/tests', '.' ]
+
+command! CSwitchGoToTest call c_switch#go_to_test_file()
+command! CSwitchGoToHeader call c_switch#go_to_header()
+nnoremap <leader>gt :CSwitchGoToTest<CR>
+nnoremap <leader>gh :CSwitchGoToHeader<CR>
+"}}}
