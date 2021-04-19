@@ -93,3 +93,17 @@ fu! c_switch#go_to_test_file()
 	call c_switch#test_boilerplate(header, fnamemodify(implementation_file, ':e') == 'c')
 	let b:implementation_file = implementation_file
 endfu
+
+" Edit cmake file
+fu! c_switch#go_to_cmake_file()
+	let folder=expand('%:p:h')
+	while !empty(folder) && folder != '/'
+		let try_file = folder . '/' . 'CmakeLists.txt'
+		if filereadable(try_file)
+			exe 'e ' . try_file
+			return
+		else
+			let folder = fnamemodify(folder, ':h')
+		endif
+	endwhile
+endfu
