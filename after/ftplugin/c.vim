@@ -60,4 +60,10 @@ command! CSwitchGoToCmake call c_switch#go_to_cmake_file()
 nnoremap <leader>ct :CSwitchGoToTest<CR>
 nnoremap <leader>ch :CSwitchGoToHeader<CR>
 nnoremap <leader>cm :CSwitchGoToCmake<CR>
+nnoremap <leader>cvt <C-W>v:CSwitchGoToTest<CR>
+nnoremap <leader>cvh <C-W>v:CSwitchGoToHeader<CR>
+nnoremap <leader>cvm <C-W>v:CSwitchGoToCmake<CR>
+nnoremap <leader>cst <C-W>s:CSwitchGoToTest<CR>
+nnoremap <leader>csh <C-W>s:CSwitchGoToHeader<CR>
+nnoremap <leader>csm <C-W>s:CSwitchGoToCmake<CR>
 "}}}
