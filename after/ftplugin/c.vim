@@ -57,7 +57,7 @@ let g:test_location = [ ':git:/tests', '.' ]
 command! CSwitchGoToTest call c_switch#go_to_test_file()
 command! CSwitchGoToHeader call c_switch#go_to_header()
 command! CSwitchGoToCmake call c_switch#go_to_cmake_file()
-nnoremap <leader>gt :CSwitchGoToTest<CR>
-nnoremap <leader>gh :CSwitchGoToHeader<CR>
-nnoremap <leader>gcm :CSwitchGoToCmake<CR>
+nnoremap <leader>ct :CSwitchGoToTest<CR>
+nnoremap <leader>ch :CSwitchGoToHeader<CR>
+nnoremap <leader>cm :CSwitchGoToCmake<CR>
 "}}}
