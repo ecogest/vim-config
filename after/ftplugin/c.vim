@@ -51,8 +51,9 @@ let b:tcomment_block_fmt_c = {
 "}}}
 " Header Switch{{{
 "
-let g:header_location = [ ':git:/includes', '.' ]
-let g:test_location = [ ':git:/tests', '.' ]
+let g:root_directories = [ ':git:' , '/' ]
+let g:header_directories = [ 'includes', 'include' ]
+let g:test_directories = [ 'tests', 'test' ]
 
 command! CSwitchGoToTest call c_switch#go_to_test_file()
 command! CSwitchGoToHeader call c_switch#go_to_header()
