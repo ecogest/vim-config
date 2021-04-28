@@ -13,6 +13,6 @@ CompilerSet makeprg=python3\ -m\ norminette
 " CompilerSet errorformat+=%.%#(line:\ %l):%m,
 " CompilerSet errorformat+=%Q,
 
-CompilerSet errorformat =%E%f:\ Error!
-CompilerSet errorformat+=%ZError:\ %s\ (line:%*[\ ]%l\\,\ col:%*[\ ]%c)%m
-" CompilerSet errorformat+=%Q
+CompilerSet errorformat =%P%f:\ Error!
+CompilerSet errorformat+=Error:\ %s\ (line:%*[\ ]%l\\,\ col:%*[\ ]%c)%m
+CompilerSet errorformat+=%-Q
