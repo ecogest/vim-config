@@ -1,17 +1,4 @@
-" Returns the header name in the first #include \"...\" of the file
-" If no result, return ''
-" Stop searching after line 20
-
-fu! c_switch#get_top_header_name()
-	let save_pos = getcurpos()
-	call cursor(1, 1)
-	let header_line_number = search('^\s*#\s*include ".*"', 'c', 20)
-	if header_line_number == 0 | return '' | endif
-	let line = getline(header_line_number)
-	let header_filename = matchstr(line, '"\zs.*\ze"')
-	call setpos('.', save_pos)
-	return header_filename
-endfu
+" Private functions {{{
 
 " Expands :git: to the top level dir if present in a string
 fu! s:expand_prefix(prefix)
@@ -87,16 +74,6 @@ fu! s:go_to(target_name, possible_directories)
 	let b:implementation_file = implementation_file
 endfu
 
-" Edit header
-fu! c_switch#go_to_header()
-	let header_name = c_switch#get_top_header_name()
-	if empty(header_name)
-		echohl WarningMsg | echo "You need to reference to a header in this file." | echohl None
-		return
-	endif
-	call s:go_to(header_name, g:header_directories)
-endfu
-
 " Insert gtest and local header
 fu! s:insert_test_headers(header, is_c_type)
 	let lnum = line('$') - 1
@@ -106,9 +83,51 @@ fu! s:insert_test_headers(header, is_c_type)
 	if a:is_c_type | call append(lnum, '}') | endif
 endfu
 
+" Returns path of the closest CmakeLists.txt in upper directories
+fu! s:get_cmakelists_path()
+	let folder=expand('%:p:h')
+	while !empty(folder) && folder != '/'
+		let try_file = folder . '/' . 'CmakeLists.txt'
+		if filereadable(try_file)
+			return try_file
+		else
+			let folder = fnamemodify(folder, ':h')
+		endif
+	endwhile
+endfu
+
+" }}}
+
+" Public functions {{{
+
+" Returns the header name in the first #include \"...\" of the file
+" If no result, return ''
+" Stop searching after line 20
+fu! c_switch#get_top_header_name()
+	let save_pos = getcurpos()
+	call cursor(1, 1)
+	let header_line_number = search('^\s*#\s*include ".*"', 'c', 20)
+	if header_line_number == 0 | return '' | endif
+	let line = getline(header_line_number)
+	let header_filename = matchstr(line, '"\zs.*\ze"')
+	call setpos('.', save_pos)
+	return header_filename
+endfu
+
+" Insert googletest boilerplate if no header yet found
 fu! c_switch#test_boilerplate(header, is_c_type)
 	if search('#include') | return | endif
 	call s:insert_test_headers(a:header, a:is_c_type)
+endfu
+
+" Edit header
+fu! c_switch#go_to_header()
+	let header_name = c_switch#get_top_header_name()
+	if empty(header_name)
+		echohl WarningMsg | echo "You need to reference to a header in this file." | echohl None
+		return
+	endif
+	call s:go_to(header_name, g:header_directories)
 endfu
 
 " Edit test file
@@ -122,17 +141,9 @@ endfu
 
 " Edit cmake file
 fu! c_switch#go_to_cmake_file()
-	let folder=expand('%:p:h')
 	let implementation_file = expand('%:p')
-	while !empty(folder) && folder != '/'
-		let try_file = folder . '/' . 'CmakeLists.txt'
-		if filereadable(try_file)
-			exe 'e ' . try_file
-			let b:implementation_file = implementation_file
-			return
-		else
-			let folder = fnamemodify(folder, ':h')
-		endif
-	endwhile
+	let cmake_file = s:get_cmakelists_path()
+	exe 'e ' . cmake_file
+	let b:implementation_file = implementation_file
 endfu
-
+" }}}
