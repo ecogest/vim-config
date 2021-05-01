@@ -1,7 +1,7 @@
-" if exists('b:my_c_config')
-" 	finish
-" endif
-" let b:my_c_config = 1
+if exists('b:my_c_config')
+	finish
+endif
+let b:my_c_config = 1
 
 " Options {{{
 "
@@ -55,6 +55,7 @@ let g:root_directories = [ ':git:' , '/' ]
 let g:header_directories = [ 'includes', 'include' ]
 let g:test_directories = [ 'tests', 'test' ]
 
+" GoTo commands
 command! CSwitchGoToTest call c_switch#go_to_test_file()
 command! CSwitchGoToHeader call c_switch#go_to_header()
 command! CSwitchGoToCmake call c_switch#go_to_cmake_file()
@@ -67,4 +68,7 @@ nnoremap <leader>cvm <C-W>v:CSwitchGoToCmake<CR>
 nnoremap <leader>cst <C-W>s:CSwitchGoToTest<CR>
 nnoremap <leader>csh <C-W>s:CSwitchGoToHeader<CR>
 nnoremap <leader>csm <C-W>s:CSwitchGoToCmake<CR>
+" Add source to CmakeLists.txt
+command! CSwitchAddSourceToCmakeLists call c_switch#add_current_file_to_cmakelists()
+nnoremap <leader>ca :CSwitchAddSourceToCmakeLists<CR>
 "}}}

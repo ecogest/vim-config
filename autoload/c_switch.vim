@@ -96,6 +96,23 @@ fu! s:get_cmakelists_path()
 	endwhile
 endfu
 
+" Returns the line where to insert the source. If source already listed,
+" returns 0
+fu! s:should_insert_src_in_cmakelists_at(cmake_file_list_lines, current_file_relative_path)
+	let lnum = 1
+	for line in a:cmake_file_list_lines
+		if line =~# a:current_file_relative_path
+			return 0
+		endif
+		if line =~ 'set (SRCS$'
+			" se rappeler de la ligne
+			let src_lnum = lnum
+		endif
+		let lnum += 1
+	endfor
+	return src_lnum + 1
+endfu
+
 " }}}
 
 " Public functions {{{
@@ -145,5 +162,22 @@ fu! c_switch#go_to_cmake_file()
 	let cmake_file = s:get_cmakelists_path()
 	exe 'e ' . cmake_file
 	let b:implementation_file = implementation_file
+endfu
+
+fu! c_switch#add_current_file_to_cmakelists()
+	let cmakelists_directory = fnamemodify(s:get_cmakelists_path(), ':h:p')
+	let backup_current_dir = getcwd()
+	exe 'chdir ' . cmakelists_directory
+	let current_file_relative_path = expand('%')
+	let cmakelists_lines = readfile('CmakeLists.txt')
+	let should_insert_src_at = s:should_insert_src_in_cmakelists_at(cmakelists_lines, current_file_relative_path)
+	if !should_insert_src_at
+		echo 'Source already in CmakeLists.txt'
+	else
+		call insert(cmakelists_lines, '  ' . current_file_relative_path, should_insert_src_at)
+		echo 'Source added to CmakeLists.txt'
+		call writefile(cmakelists_lines, 'CmakeLists.txt')
+	endif
+	exe 'chdir ' . backup_current_dir
 endfu
 " }}}
