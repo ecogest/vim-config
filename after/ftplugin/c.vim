@@ -59,16 +59,25 @@ let g:test_directories = [ 'tests', 'test' ]
 command! CSwitchGoToTest call c_switch#go_to_test_file()
 command! CSwitchGoToHeader call c_switch#go_to_header()
 command! CSwitchGoToCmake call c_switch#go_to_cmake_file()
-nnoremap <leader>ct :CSwitchGoToTest<CR>
-nnoremap <leader>ch :CSwitchGoToHeader<CR>
-nnoremap <leader>cm :CSwitchGoToCmake<CR>
-nnoremap <leader>cvt <C-W>v:CSwitchGoToTest<CR>
-nnoremap <leader>cvh <C-W>v:CSwitchGoToHeader<CR>
-nnoremap <leader>cvm <C-W>v:CSwitchGoToCmake<CR>
-nnoremap <leader>cst <C-W>s:CSwitchGoToTest<CR>
-nnoremap <leader>csh <C-W>s:CSwitchGoToHeader<CR>
-nnoremap <leader>csm <C-W>s:CSwitchGoToCmake<CR>
+nnoremap <buffer> <leader>ct :CSwitchGoToTest<CR>
+nnoremap <buffer> <leader>ch :CSwitchGoToHeader<CR>
+nnoremap <buffer> <leader>cm :CSwitchGoToCmake<CR>
+nnoremap <buffer> <leader>cvt <C-W>v:CSwitchGoToTest<CR>
+nnoremap <buffer> <leader>cvh <C-W>v:CSwitchGoToHeader<CR>
+nnoremap <buffer> <leader>cvm <C-W>v:CSwitchGoToCmake<CR>
+nnoremap <buffer> <leader>cst <C-W>s:CSwitchGoToTest<CR>
+nnoremap <buffer> <leader>csh <C-W>s:CSwitchGoToHeader<CR>
+nnoremap <buffer> <leader>csm <C-W>s:CSwitchGoToCmake<CR>
 " Add source to CmakeLists.txt
 command! CSwitchAddSourceToCmakeLists call c_switch#add_current_file_to_cmakelists()
 nnoremap <leader>ca :CSwitchAddSourceToCmakeLists<CR>
+"}}}
+" Prototype To def{{{
+command! -nargs=1 ProtoToDefPaste call proto_to_def#proto_to_def_paste(<f-args>)
+command! -nargs=1 DefToProtoPaste call proto_to_def#def_to_proto_paste(<f-args>)
+command! -nargs=1 ProtoDefAlternatePaste call proto_to_def#alternate_paste(<f-args>)
+
+noremap <buffer> <leader>ap :ProtoDefAlternatePaste "<CR>
+noremap <buffer> <leader>aP :ProtoDefAlternatePaste +<CR>
+
 "}}}
