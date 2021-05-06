@@ -104,7 +104,7 @@ fu! s:should_insert_src_in_cmakelists_at(cmake_file_list_lines, current_file_rel
 		if line =~# a:current_file_relative_path
 			return 0
 		endif
-		if line =~ 'set (SRCS$'
+		if line =~ 'set (\(TEST_\)\=SRCS$'
 			" se rappeler de la ligne
 			let src_lnum = lnum
 		endif
