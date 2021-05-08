@@ -54,6 +54,7 @@ let b:tcomment_block_fmt_c = {
 let g:root_directories = [ ':git:' , '/' ]
 let g:header_directories = [ 'includes', 'include' ]
 let g:test_directories = [ 'tests', 'test' ]
+let g:test_filename_pattern = '%_test.cc'
 
 " GoTo commands
 command! CSwitchGoToTest call c_switch#go_to_test_file()

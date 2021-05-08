@@ -149,7 +149,8 @@ endfu
 
 " Edit test file
 fu! c_switch#go_to_test_file()
-	let test_filename = 'test_' . expand('%:t:r') . '.cc'
+	" let test_filename = 'test_' . expand('%:t:r') . '.cc'
+	let test_filename = substitute(g:test_filename_pattern, '%', expand('%:t:r'), '')
 	let header = c_switch#get_top_header_name()
 	let implementation_file = expand('%:p')
 	call s:go_to(test_filename, g:test_directories)
