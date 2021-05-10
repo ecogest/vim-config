@@ -45,7 +45,7 @@ fu! s:find_file(target_name, root_dir, possible_directories, source_location)
 	if empty(dir_list) | return '' | endif
 	" In each dir we check if the target file already exists
 	for dir in dir_list
-		let target_path = findfile(a:target_name, dir)
+		let target_path = findfile(a:target_name, dir . '/**')
 		if !empty(target_path) | return target_path | endif
 	endfor
 	" If no file is found, we will create one where the first directory match
