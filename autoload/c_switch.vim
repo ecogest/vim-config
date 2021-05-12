@@ -165,6 +165,18 @@ fu! c_switch#go_to_cmake_file()
 	let b:implementation_file = implementation_file
 endfu
 
+" Del file from cmake
+fu! c_switch#del_current_file_from_cmakelists()
+	let cmakelists_directory = fnamemodify(s:get_cmakelists_path(), ':h:p')
+	let backup_current_dir = getcwd()
+	exe 'chdir ' . cmakelists_directory
+	let current_file_relative_path = expand('%')
+	e CmakeLists.txt
+	exe '%s/^\s*' . escape(current_file_relative_path, '.') . '$//gc'
+	" q
+endfu
+
+" Add file to cmake
 fu! c_switch#add_current_file_to_cmakelists()
 	let cmakelists_directory = fnamemodify(s:get_cmakelists_path(), ':h:p')
 	let backup_current_dir = getcwd()

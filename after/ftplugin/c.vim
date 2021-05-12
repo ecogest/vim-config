@@ -69,9 +69,11 @@ nnoremap <buffer> <leader>cvm <C-W>v:CSwitchGoToCmake<CR>
 nnoremap <buffer> <leader>cst <C-W>s:CSwitchGoToTest<CR>
 nnoremap <buffer> <leader>csh <C-W>s:CSwitchGoToHeader<CR>
 nnoremap <buffer> <leader>csm <C-W>s:CSwitchGoToCmake<CR>
-" Add source to CmakeLists.txt
+" Add/del source to CmakeLists.txt
 command! CSwitchAddSourceToCmakeLists call c_switch#add_current_file_to_cmakelists()
 nnoremap <leader>ca :CSwitchAddSourceToCmakeLists<CR>
+command! CSwitchDelSourceFromCmakeLists call c_switch#del_current_file_from_cmakelists()
+nnoremap <leader>cd :CSwitchDelSourceFromCmakeLists<CR>
 "}}}
 " Prototype To def{{{
 command! -nargs=1 ProtoToDefPaste call proto_to_def#proto_to_def_paste(<f-args>)
