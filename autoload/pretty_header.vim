@@ -31,20 +31,21 @@ fu! s:commentstring_header_string(text, cms, placeholder)
 	return printf(cms, final_text)
 endfu
 
-fu! s:commentstring_header(text, cms, placeholder)
-	let header_string = s:commentstring_header_string(a:text, a:cms, a:placeholder)
-	call append(line('.') - 1, header_string)
-endfu
+" fu! s:commentstring_header(text, cms, placeholder)
+" 	let header_string = s:commentstring_header_string(a:text, a:cms, a:placeholder)
+" 	call append(line('.') - 1, header_string)
+" endfu
 
 fu! s:long_format_header(text, sr, mb, ex, placeholder)
 	let cms = a:mb . '%s'
 	let header_string = s:commentstring_header_string(a:text, cms, a:placeholder)
-	call append(line('.') - 1, [a:sr, header_string, a:ex])
+	return ([a:sr, header_string, a:ex])
 endfu
 " }}}
 
 " Public functions {{{
-fu! pretty_header#pretty_header(text)
+
+fu! pretty_header#pretty_header_lines(text)
 	" Simple format (ex '/*%s*/')
 	let cms = &commentstring
 	" Complex format (ex 'sr:/*,mb:**,ex:*/,://)
@@ -55,9 +56,13 @@ fu! pretty_header#pretty_header(text)
 	" Placeholder for the section (ex: = will give '/* ==== Header ==== */)
 	let placeholder = g:pretty_header_placeholder
 	if !empty(sr) && !empty(mb) && !empty(ex)
-		call s:long_format_header(a:text, sr, mb, ex, placeholder)
+		return s:long_format_header(a:text, sr, mb, ex, placeholder)
 	else
-		call s:commentstring_header(a:text, cms, placeholder)
+		return s:commentstring_header_string(a:text, cms, placeholder)
 	endif
+endfu
+
+fu! pretty_header#pretty_header(text)
+	call append(line('.') - 1, pretty_header#pretty_header_lines(a:text))
 endfu
 "}}}
