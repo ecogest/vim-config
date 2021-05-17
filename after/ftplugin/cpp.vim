@@ -7,9 +7,11 @@ runtime! ftplugin/c.vim
 
 " Options:
 setl matchpairs+=<:>
-if expand("%") =~# '.*_test\.cc'
-	setl ft=gtest.cpp
-endif
+" Compose filetype for test files (setl ft=gtest.cpp). Good idea but does not
+" work well with coc syntax
+" if expand("%") =~# '.*_test\.cc'
+" 	setl ft=gtest.cpp
+" endif
 
 " Protect my headers:
 
