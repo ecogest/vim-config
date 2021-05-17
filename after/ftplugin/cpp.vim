@@ -7,6 +7,9 @@ runtime! ftplugin/c.vim
 
 " Options:
 setl matchpairs+=<:>
+if expand("%") =~# '.*_test\.cc'
+	setl ft=gtest.cpp
+endif
 
 " Protect my headers:
 
