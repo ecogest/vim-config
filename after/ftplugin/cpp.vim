@@ -5,11 +5,17 @@
 " Import c parameters:
 runtime! ftplugin/c.vim
 
+" Options:
+setl matchpairs+=<:>
+
 " Protect my headers:
 
 command! Hprotect call header42#protect_new_header()
 command! Hupdate call header42#update_header_protection()
-au BufWritePre *.h,*.hpp Hupdate
+augroup Hupdate
+	au!
+	au BufWritePre *.h,*.hpp Hupdate
+augroup END
 " in vimrc you should put: au BufNewFile *.h Hprotect
 
 " Hpp template:
